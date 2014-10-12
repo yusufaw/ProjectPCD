@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ImageProcessing {
 
@@ -17,6 +18,8 @@ public class ImageProcessing {
     private BufferedImage DiameterLineImage;
     private BufferedImage negativeImage;
     private BufferedImage logTransformationImage;
+    private BufferedImage powerLawImage;
+    private BufferedImage bitPlaneImage;
     private int tinggiCitra;
     private int lebarCitra;
     private double diameterObjek;
@@ -36,6 +39,8 @@ public class ImageProcessing {
         this.maxImage = null;
         this.negativeImage = null;
         this.logTransformationImage = null;
+        this.powerLawImage = null;
+        this.bitPlaneImage = null;
         this.meanR = 0;
         this.meanG = 0;
         this.meanB = 0;
@@ -78,6 +83,15 @@ public class ImageProcessing {
      */
     public BufferedImage getGrayImage() {
         return this.grayImage;
+    }
+
+    /**
+     * Dapatkan image yg sudah diproses menjadi power-law transformation image.
+     *
+     * @return
+     */
+    public BufferedImage getPowerLawImage() {
+        return this.powerLawImage;
     }
 
     /**
@@ -137,6 +151,13 @@ public class ImageProcessing {
         return this.DiameterLineImage;
     }
 
+    /**
+     * Dapatkan nilai max gray
+     * @return 
+     */
+    public int getMaxGray(){
+        return this.maxGray;
+    }
     /**
      * Dapatkan mean red value dari image.
      *
@@ -211,6 +232,36 @@ public class ImageProcessing {
         this.negativeImage = output;
     }
 
+    /**
+     * Pemrosesan image menjadi power-law transformations image.
+     *
+     * @param c : constanta
+     * @param gamma
+     */
+    public void imageToPowerLaw(double c, double gamma) {
+        int hasil;
+        Color before, after;
+        BufferedImage output = new BufferedImage(lebarCitra, tinggiCitra,
+                BufferedImage.TYPE_BYTE_GRAY);
+        for (int y = 0; y < tinggiCitra; y++) {
+            for (int x = 0; x < lebarCitra; x++) {
+                before = new Color(grayImage.getRGB(x, y) & 0x00ffffff);
+                //System.out.println(Math.log((double)(1+before.getRed())));
+                hasil = (int) (c * Math.pow(before.getRed(), gamma));
+                hasil = hasil < 0 ? 0 : hasil;
+                hasil = hasil > 255 ? 255 : hasil;
+                after = new Color(hasil, hasil, hasil);
+                output.setRGB(x, y, after.getRGB());
+            }
+        }
+        this.powerLawImage = output;
+    }
+
+    /**
+     * Pemrosesan image menjadi log transformation image.
+     *
+     * @param c : constanta
+     */
     public void imageToLogTransformation(double c) {
         int hasil;
         Color before, after;
@@ -232,6 +283,8 @@ public class ImageProcessing {
 
     /**
      * Pemrosesan image menjadi grayscale image.
+     *
+     * @param metode : metode grayscale
      */
     public void imageToGray(int metode) {
         // Init variable
@@ -249,32 +302,23 @@ public class ImageProcessing {
 
                 // Calculate RGB to gray
                 // with lumonisity algorithm
-                if(metode==0){
+                if (metode == 0) {
                     red = (double) (before.getRed());
                     green = (double) (before.getGreen());
                     blue = (double) (before.getBlue());
-                    gray = (int) ((Math.max(green, Math.max(red, blue)) + Math.min(green, Math.min(red, blue)))/2);
-                }
-                else if(metode == 1){
+                    gray = (int) ((Math.max(green, Math.max(red, blue)) + Math.min(green, Math.min(red, blue))) / 2);
+                } else if (metode == 1) {
                     red = (double) (before.getRed());
                     green = (double) (before.getGreen());
                     blue = (double) (before.getBlue());
-                    gray = (int) ((red+green+blue)/2);
-                }
-                else if (metode == 2) {
+                    gray = (int) ((red + green + blue) / 2);
+                } else if (metode == 2) {
                     red = (double) (before.getRed() * 0.2989);
                     green = (double) (before.getGreen() * 0.5870);
                     blue = (double) (before.getBlue() * 0.1140);
                     gray = (int) (red + green + blue);
                 }
-                
-//                if(gray > maxGray){
-//                    maxGray = gray;
-//                }
-
                 maxGray = gray > maxGray ? gray : maxGray;
-                //System.out.println(""+maxGray);
-
                 gray = gray < 0 ? 0 : gray;
                 gray = gray > 255 ? 255 : gray;
                 after = new Color(gray, gray, gray);
@@ -284,6 +328,37 @@ public class ImageProcessing {
             }
         }
         this.grayImage = output;
+    }
+
+    public BufferedImage imageToBitPlane(int level) {
+        int hasil;
+        String matrixBit[][][] = new String[lebarCitra][tinggiCitra][8];
+        Color before, after;
+        BufferedImage output = new BufferedImage(lebarCitra, tinggiCitra,
+                BufferedImage.TYPE_BYTE_GRAY);
+        for (int y = 0; y < tinggiCitra; y++) {
+            for (int x = 0; x < lebarCitra; x++) {
+                before = new Color(grayImage.getRGB(x, y) & 0x00ffffff);
+                matrixBit[x][y] = decimalToBinary(before.getRed()).split(" ");
+                hasil = Integer.parseInt(matrixBit[x][y][level]);
+                hasil = hasil == 1 ? 255 : hasil;
+                after = new Color(hasil, hasil, hasil);
+                output.setRGB(x, y, after.getRGB());
+            }
+        }
+        return output;
+    }
+
+    private String decimalToBinary(int num) {
+        int[] binArr = new int[8];
+        int j = 0;
+        while (num != 0) {
+            int digit = num % 2;
+            binArr[binArr.length - 1 - j] = digit;
+            num = num / 2;
+            j++;
+        }
+        return (Arrays.toString(binArr).replaceAll("\\,|\\[|\\]", ""));
     }
 
     /**
@@ -301,7 +376,7 @@ public class ImageProcessing {
 
                 before = new Color(this.grayImage.getRGB(x, y) & 0x00ffffff);
 
-                if (before.getBlue() < 251) {
+                if (before.getBlue() > 150) {
                     after = new Color(255, 255, 255);
                     koordObjek.add(String.valueOf(x) + "," + String.valueOf(y));
                 } else {
@@ -311,6 +386,69 @@ public class ImageProcessing {
             }
         }
         this.binaryImage = output;
+    }
+
+    public BufferedImage imageSubstraction(BufferedImage gambar1) {
+        Color before, after, before2;
+        int hasil;
+        koordObjek.clear();
+        BufferedImage output = new BufferedImage(lebarCitra, tinggiCitra,
+                BufferedImage.TYPE_BYTE_GRAY);
+        for (int y = 0; y < tinggiCitra; y++) {
+            for (int x = 0; x < lebarCitra; x++) {
+
+                before = new Color(this.grayImage.getRGB(x, y) & 0x00ffffff);
+                before2 = new Color(gambar1.getRGB(x, y) & 0x00ffffff);
+                hasil = (int) ((before.getRed() - before2.getRed()));
+                hasil = hasil < 0 ? (int) (Math.sqrt(Math.pow(hasil, 2))) : hasil;
+                hasil = hasil > 255 ? 255 : hasil;
+                after = new Color(hasil, hasil, hasil);
+                output.setRGB(x, y, after.getRGB());
+            }
+        }
+        return output;
+    }
+
+    public BufferedImage operasiLogika(BufferedImage gambar2, int jenis) {
+        int hasil;
+        String result;
+        String matrixBit1[][][] = new String[lebarCitra][tinggiCitra][8];
+        String matrixBit2[][][] = new String[lebarCitra][tinggiCitra][8];
+        Color before1, before2, after;
+        BufferedImage output = new BufferedImage(lebarCitra, tinggiCitra,
+                BufferedImage.TYPE_BYTE_GRAY);
+        for (int y = 0; y < tinggiCitra; y++) {
+            for (int x = 0; x < lebarCitra; x++) {
+                before1 = new Color(grayImage.getRGB(x, y) & 0x00ffffff);
+                before2 = new Color(gambar2.getRGB(x, y) & 0x00ffffff);
+                matrixBit1[x][y] = decimalToBinary(before1.getRed()).split(" ");
+                matrixBit2[x][y] = decimalToBinary(before2.getRed()).split(" ");
+                result = "";
+                for (int i = 0; i < 8; i++) {
+                    if (0 == jenis) {
+                        if ("1".equals(matrixBit1[x][y][i]) && "1".equals(matrixBit2[x][y][i])) {
+                            result += 1;
+                        } else {
+                            result += 0;
+                        }
+                    } else if (1 == jenis) {
+                        if ("1".equals(matrixBit1[x][y][i]) || "1".equals(matrixBit2[x][y][i])) {
+                            result += 1;
+                        } else {
+                            result += 0;
+                        }
+                    } else {
+                        result += matrixBit1[x][y][i].equals(matrixBit2[x][y][i]) ? "0" : "1";
+                    }
+                }
+                hasil = Integer.parseInt(result, 2);
+                hasil = hasil < 0 ? 0 : hasil;
+                hasil = hasil > 255 ? 255 : hasil;
+                after = new Color(hasil, hasil, hasil);
+                output.setRGB(x, y, after.getRGB());
+            }
+        }
+        return output;
     }
 
     /**

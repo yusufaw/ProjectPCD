@@ -13,6 +13,8 @@ public class About extends javax.swing.JDialog {
 
     /**
      * Creates new form About
+     * @param parent
+     * @param modal
      */
     public About(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -39,7 +41,7 @@ public class About extends javax.swing.JDialog {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Program Pengolahan Citra Digital\n\nAnggota Kelompok\nZELLA AGUSTINA R.H \t115060800111122\nAKHMAD SYURURI \t115060807111092\nADZHANA HASFI \t115090607111026\nYUSUF AJI WIBOWO\t115090613111004");
+        jTextArea1.setText("Program Pengolahan Citra Digital\n\nAnggota Kelompok\nZELLA AGUSTINA R.H \t115060800111122\nAKHMAD SYURURI \t\t115060807111092\nADZHANA HASFI \t\t115090607111026\nYUSUF AJI WIBOWO\t115090613111004\nRIZKY AMALIA PRAMESTI\t125150200111084");
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -119,6 +121,7 @@ public class About extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 About dialog = new About(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {

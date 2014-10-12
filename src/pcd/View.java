@@ -5,15 +5,16 @@
  */
 package pcd;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import imageHelper.ImageProcessing;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class View extends javax.swing.JFrame {
 
-    ImageProcessing testingImage = null;
+    ImageProcessing imageFormSiji = null, imageFormLoro = null, imageFormTelu1 = null, imageFormTelu2 = null, imageFormPapat1 = null, imageFormPapat2 = null;
 
     /**
      * Creates new form View
@@ -29,7 +30,12 @@ public class View extends javax.swing.JFrame {
     public View() {
         initComponents();
         setLocationRelativeTo(null);
-        testingImage = new ImageProcessing();
+        imageFormSiji = new ImageProcessing();
+        imageFormLoro = new ImageProcessing();
+        imageFormTelu1 = new ImageProcessing();
+        imageFormTelu2 = new ImageProcessing();
+        imageFormPapat1 = new ImageProcessing();
+        imageFormPapat2 = new ImageProcessing();
     }
 
     /**
@@ -41,6 +47,8 @@ public class View extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         citraGrayLabel = new javax.swing.JLabel();
@@ -58,9 +66,9 @@ public class View extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         citraPowerLawLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        cPowerInput = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        gammaPowerInput = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         citraPiecewearLabel = new javax.swing.JLabel();
@@ -69,6 +77,41 @@ public class View extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         pathCitraLabel = new javax.swing.JLabel();
         detailCitraLabel = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        prosesBitPlaneButton = new javax.swing.JButton();
+        citraBitPlaneLabel = new javax.swing.JLabel();
+        citraBitPlane1Label = new javax.swing.JLabel();
+        pilihGambarBitPlaneButton = new javax.swing.JButton();
+        citraBitPlane1GrayLabel = new javax.swing.JLabel();
+        levelBitCombo = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        namaCitraBitPlane = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        citraSubstractionLabel2Gray = new javax.swing.JLabel();
+        citraSubstractionLabel1Gray = new javax.swing.JLabel();
+        citraSubstractionLabelHasil = new javax.swing.JLabel();
+        prosesSubstractionButton = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        pathLabelSubs1 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        pathLabelSubs2 = new javax.swing.JLabel();
+        citraSubstractionLabel1 = new javax.swing.JLabel();
+        citraSubstractionLabel2 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        citraFormPapat2Gray = new javax.swing.JLabel();
+        citraFormPapat1Gray = new javax.swing.JLabel();
+        citraHasilLogika = new javax.swing.JLabel();
+        prosesSubstractionButton1 = new javax.swing.JButton();
+        pilihGambarForm4a = new javax.swing.JButton();
+        pathLabelSubs3 = new javax.swing.JLabel();
+        pilihGambarForm4b = new javax.swing.JButton();
+        pathLabelSubs4 = new javax.swing.JLabel();
+        citraFormPapat1 = new javax.swing.JLabel();
+        citraFormPapat2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jenisLogikaCombo = new javax.swing.JComboBox();
+        namaCitraForm4a = new javax.swing.JLabel();
+        namaCitraForm4b = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -82,7 +125,7 @@ public class View extends javax.swing.JFrame {
 
         citraGrayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         citraGrayLabel.setText("Citra Gray");
-        citraGrayLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Citra Gray"));
+        citraGrayLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Gray", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         grayProsesButton.setText("Proses");
         grayProsesButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,9 +147,12 @@ public class View extends javax.swing.JFrame {
                 .addComponent(citraGrayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(grayProsesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(grayMetodeCombo, 0, 119, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(grayMetodeCombo, 0, 119, Short.MAX_VALUE)
+                            .addComponent(grayProsesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,7 +169,7 @@ public class View extends javax.swing.JFrame {
                         .addComponent(grayMetodeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(grayProsesButton)))
-                .addGap(0, 55, Short.MAX_VALUE))
+                .addGap(0, 36, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gray Level", jPanel1);
@@ -132,7 +178,7 @@ public class View extends javax.swing.JFrame {
 
         citraNegatifLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         citraNegatifLabel.setText("Citra Negatif");
-        citraNegatifLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Citra Negatif"));
+        citraNegatifLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Negatif", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         negatifProsesButton.setText("Proses");
         negatifProsesButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,8 +195,8 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(citraNegatifLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(negatifProsesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(negatifProsesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +208,7 @@ public class View extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(negatifProsesButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Negative", jPanel2);
@@ -171,7 +217,7 @@ public class View extends javax.swing.JFrame {
 
         citraLogTransformationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         citraLogTransformationLabel.setText("Citra Log Transformation");
-        citraLogTransformationLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Citra Log Transformation"));
+        citraLogTransformationLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Log Transformation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         logTransformationProsesButton.setText("Proses");
         logTransformationProsesButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -180,24 +226,24 @@ public class View extends javax.swing.JFrame {
             }
         });
 
-        constantaLogTransInput.setText("20");
+        constantaLogTransInput.setText("30");
 
-        jLabel1.setText("Konstanta :");
+        jLabel1.setText("Konstanta c:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(citraLogTransformationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(logTransformationProsesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(constantaLogTransInput)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 34, Short.MAX_VALUE)))
+                        .addGap(0, 94, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -205,15 +251,15 @@ public class View extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(citraLogTransformationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(constantaLogTransInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(logTransformationProsesButton)))
+                        .addComponent(logTransformationProsesButton))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(citraLogTransformationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -223,19 +269,29 @@ public class View extends javax.swing.JFrame {
 
         citraPowerLawLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         citraPowerLawLabel.setText("Citra Power-Law Transformations");
-        citraPowerLawLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Citra Power-Law Transformations"));
+        citraPowerLawLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Power-Law Transformations", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel2.setText("Konstanta c :");
 
+        cPowerInput.setText("0.1");
+
         jLabel3.setText("Konstanta y : ");
 
+        gammaPowerInput.setText("2");
+
         jButton2.setText("Proses");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addComponent(citraPowerLawLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,30 +299,30 @@ public class View extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 45, Short.MAX_VALUE))
+                        .addGap(0, 103, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(gammaPowerInput)
+                            .addComponent(cPowerInput, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(citraPowerLawLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 67, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(citraPowerLawLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cPowerInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(gammaPowerInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -275,8 +331,8 @@ public class View extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Piecewise-Linear Transformation Functions"));
 
         citraPiecewearLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        citraPiecewearLabel.setText("Citra Piecewear Transformation Functions");
-        citraPiecewearLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Citra Piecewear Transformation Functions"));
+        citraPiecewearLabel.setText("Citra Piecewise Transformation Functions");
+        citraPiecewearLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Piecewise Transformation Functions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jButton3.setText("Proses");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -292,35 +348,399 @@ public class View extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(citraPiecewearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(citraPiecewearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 67, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(citraPiecewearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Piecewear-Linear", jPanel5);
+        jTabbedPane1.addTab("Piecewise-Linear", jPanel5);
 
         citraLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         citraLabel.setText("Citra Awal");
-        citraLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Citra Awal"));
+        citraLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Awal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jButton1.setText("Cari Gambar");
+        jButton1.setText("Pilih Gambar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        pathCitraLabel.setText("Path Citra");
+        pathCitraLabel.setText(" ");
 
         detailCitraLabel.setText("Detal Citra");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailCitraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(citraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pathCitraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(pathCitraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(citraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(detailCitraLabel))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 177, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Form 1", jPanel6);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Bit-plane Slicing"));
+
+        prosesBitPlaneButton.setText("Proses");
+        prosesBitPlaneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                prosesBitPlaneButtonMouseClicked(evt);
+            }
+        });
+        prosesBitPlaneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prosesBitPlaneButtonActionPerformed(evt);
+            }
+        });
+
+        citraBitPlaneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraBitPlaneLabel.setText("Citra Hasil");
+        citraBitPlaneLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Hasil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        citraBitPlane1Label.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Awal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        pilihGambarBitPlaneButton.setText("Pilih Gambar");
+        pilihGambarBitPlaneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pilihGambarBitPlaneButtonMouseClicked(evt);
+            }
+        });
+
+        citraBitPlane1GrayLabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Gray", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        levelBitCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7", "6", "5", "4", "3", "2", "1", "0" }));
+
+        jLabel7.setText("Level Bit");
+
+        namaCitraBitPlane.setText(" ");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(citraBitPlane1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(citraBitPlane1GrayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(pilihGambarBitPlaneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(namaCitraBitPlane, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(levelBitCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(prosesBitPlaneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(citraBitPlaneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(prosesBitPlaneButton)
+                            .addComponent(levelBitCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(citraBitPlaneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pilihGambarBitPlaneButton)
+                            .addComponent(namaCitraBitPlane))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(citraBitPlane1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(citraBitPlane1GrayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(212, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Form 2", jPanel7);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Image Substraction"))));
+
+        citraSubstractionLabel2Gray.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraSubstractionLabel2Gray.setText("Citra Gray");
+        citraSubstractionLabel2Gray.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Gray", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        citraSubstractionLabel1Gray.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraSubstractionLabel1Gray.setText("Citra Gray");
+        citraSubstractionLabel1Gray.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Gray", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        citraSubstractionLabelHasil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraSubstractionLabelHasil.setText("Citra Hasil");
+        citraSubstractionLabelHasil.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Hasil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        prosesSubstractionButton.setText("Proses");
+        prosesSubstractionButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                prosesSubstractionButtonMouseClicked(evt);
+            }
+        });
+
+        jButton4.setText("Pilih Gambar");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+
+        pathLabelSubs1.setText(" ");
+
+        jButton5.setText("Pilih Gambar");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+
+        pathLabelSubs2.setText(" ");
+
+        citraSubstractionLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraSubstractionLabel1.setText("Citra Pertama");
+        citraSubstractionLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Pertama", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        citraSubstractionLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraSubstractionLabel2.setText("Citra Kedua");
+        citraSubstractionLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Kedua", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(pathLabelSubs1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(238, 238, 238)
+                        .addComponent(prosesSubstractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(citraSubstractionLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(citraSubstractionLabel2Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(citraSubstractionLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(citraSubstractionLabel1Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pathLabelSubs2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(citraSubstractionLabelHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(858, 858, 858))))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(pathLabelSubs1)
+                    .addComponent(prosesSubstractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(citraSubstractionLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(citraSubstractionLabel1Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5)
+                            .addComponent(pathLabelSubs2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(citraSubstractionLabel2Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(citraSubstractionLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(citraSubstractionLabelHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+
+        jTabbedPane2.addTab("Form 3", jPanel8);
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Operasi Logika"));
+
+        citraFormPapat2Gray.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraFormPapat2Gray.setText("Citra Gray");
+        citraFormPapat2Gray.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Gray", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        citraFormPapat1Gray.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraFormPapat1Gray.setText("Citra Gray");
+        citraFormPapat1Gray.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Gray", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        citraHasilLogika.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraHasilLogika.setText("Citra Hasil");
+        citraHasilLogika.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Hasil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        prosesSubstractionButton1.setText("Proses");
+        prosesSubstractionButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                prosesSubstractionButton1MouseClicked(evt);
+            }
+        });
+
+        pilihGambarForm4a.setText("Pilih Gambar");
+        pilihGambarForm4a.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pilihGambarForm4aMouseClicked(evt);
+            }
+        });
+
+        pathLabelSubs3.setText(" ");
+
+        pilihGambarForm4b.setText("Pilih Gambar");
+        pilihGambarForm4b.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pilihGambarForm4bMouseClicked(evt);
+            }
+        });
+
+        pathLabelSubs4.setText(" ");
+
+        citraFormPapat1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraFormPapat1.setText("Citra Pertama");
+        citraFormPapat1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Pertama", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        citraFormPapat2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        citraFormPapat2.setText("Citra Kedua / Mask");
+        citraFormPapat2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Citra Mask", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel6.setText("Pilih Logika");
+
+        jenisLogikaCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AND", "OR", "XOR" }));
+
+        namaCitraForm4a.setText(" ");
+
+        namaCitraForm4b.setText(" ");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(citraFormPapat2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(citraFormPapat2Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(pilihGambarForm4b, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+                                .addComponent(namaCitraForm4b, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(167, 167, 167)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pathLabelSubs4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(citraFormPapat1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(citraFormPapat1Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(pilihGambarForm4a, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(namaCitraForm4a, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pathLabelSubs3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jenisLogikaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(prosesSubstractionButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(citraHasilLogika, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 81, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(pilihGambarForm4a)
+                        .addComponent(pathLabelSubs3)
+                        .addComponent(namaCitraForm4a))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(prosesSubstractionButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jenisLogikaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(citraHasilLogika, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(citraFormPapat1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(citraFormPapat1Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pilihGambarForm4b)
+                            .addComponent(namaCitraForm4b))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(citraFormPapat2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(citraFormPapat2Gray, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pathLabelSubs4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Form 4", jPanel9);
 
         jMenu1.setText("File");
 
@@ -357,40 +777,18 @@ public class View extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(citraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(pathCitraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(detailCitraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 974, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(citraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pathCitraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(detailCitraLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane2)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        final String path = "./Citra Images";
+        final String path = "./Citra Images/form.1";
 
         javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
         chooser.setCurrentDirectory(new File(path));
@@ -428,16 +826,12 @@ public class View extends javax.swing.JFrame {
 
                 String extension = getExtension(f);
                 if (extension != null) {
-                    if (extension.equals(tiff)
+                    return extension.equals(tiff)
                             || extension.equals(tif)
                             || extension.equals(gif)
                             || extension.equals(jpeg)
                             || extension.equals(jpg)
-                            || extension.equals(png)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                            || extension.equals(png);
                 }
 
                 return false;
@@ -464,8 +858,9 @@ public class View extends javax.swing.JFrame {
 
                 //Buat thread baru 
                 Thread t = new Thread() {
+                    @Override
                     public void run() {
-                        testingImage.setImage(bimg);
+                        imageFormSiji.setImage(bimg);
                         citraLabel.setText("");
                         citraLabel.setIcon(new ImageIcon(bimg.getScaledInstance(300, 300, 0)));
                         resetCitra();
@@ -475,7 +870,7 @@ public class View extends javax.swing.JFrame {
 //                        jLabelCitraBinerTesting.setIcon(new ImageIcon(testingImage.getBinaryImage().getScaledInstance(70, 60, 0)));
 //                        jLabelCitraMaxFilterTesting.setIcon(new ImageIcon(testingImage.getMaxImage().getScaledInstance(70, 60, 0)));
 //                
-                        detailCitraLabel.setText("Ukuran Citra : " + testingImage.getTinggi() + " x " + testingImage.getLebar() + "");
+                        detailCitraLabel.setText("Ukuran Citra : " + imageFormSiji.getTinggi() + " x " + imageFormSiji.getLebar() + "");
 //                        
 //
 //                        jLabelCitraGrayTesting.setText("");
@@ -508,15 +903,18 @@ public class View extends javax.swing.JFrame {
                 };
                 t.start();
 
-            } catch (Exception e) {
+            } catch (IOException e) {
                 javax.swing.JOptionPane.showMessageDialog(
-                        this, "File Tidak Ditemukan");
+                        this, "File Tidak Ditemukan " + e);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void resetCitra(){
+    private void resetCitra() {
         citraGrayLabel.setIcon(null);
+        citraLogTransformationLabel.setIcon(null);
+        citraPiecewearLabel.setIcon(null);
+        citraPowerLawLabel.setIcon(null);
         citraGrayLabel.setText("Citra Gray");
         citraNegatifLabel.setIcon(null);
         citraNegatifLabel.setText("Citra Negatif");
@@ -540,24 +938,26 @@ public class View extends javax.swing.JFrame {
         Thread t = new Thread() {
             @Override
             public void run() {
-                testingImage.imageToGray(grayMetodeCombo.getSelectedIndex());
-                citraGrayLabel.setIcon(new ImageIcon(testingImage.getGrayImage().getScaledInstance(300, 300, 0)));
+                imageFormSiji.imageToGray(grayMetodeCombo.getSelectedIndex());
+                citraGrayLabel.setIcon(new ImageIcon(imageFormSiji.getGrayImage().getScaledInstance(300, 300, 0)));
             }
         };
         t.start();
-        
+
     }//GEN-LAST:event_grayProsesButtonMouseClicked
 
     private void negatifProsesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_negatifProsesButtonMouseClicked
         citraNegatifLabel.setText("Processing");
-        if(testingImage.getGrayImage() == null){
+        if (imageFormSiji.getGrayImage() == null) {
             JOptionPane.showMessageDialog(rootPane, "Set Gray Level Terlebih Dahulu !!!");
             return;
         }
         Thread t = new Thread() {
+            @Override
             public void run() {
-                testingImage.imagetoNegative();
-                citraNegatifLabel.setIcon(new ImageIcon(testingImage.getNegativeImage().getScaledInstance(300, 300, 0)));
+                imageFormSiji.imagetoNegative();
+                citraNegatifLabel.setIcon(new ImageIcon(imageFormSiji.getNegativeImage().getScaledInstance(300, 300, 0)));
+                citraNegatifLabel.setText("");
             }
         };
         t.start();
@@ -565,14 +965,16 @@ public class View extends javax.swing.JFrame {
 
     private void logTransformationProsesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logTransformationProsesButtonMouseClicked
         citraLogTransformationLabel.setText("Processing");
-        if(testingImage.getGrayImage() == null){
+        if (imageFormSiji.getGrayImage() == null) {
             JOptionPane.showMessageDialog(rootPane, "Set Gray Level Terlebih Dahulu !!!");
             return;
         }
         Thread t = new Thread() {
+            @Override
             public void run() {
-                testingImage.imageToLogTransformation(Double.parseDouble(constantaLogTransInput.getText()));
-                citraLogTransformationLabel.setIcon(new ImageIcon(testingImage.getLogTransformationImage().getScaledInstance(300, 300, 0)));
+                imageFormSiji.imageToLogTransformation(Double.parseDouble(constantaLogTransInput.getText()));
+                citraLogTransformationLabel.setIcon(new ImageIcon(imageFormSiji.getLogTransformationImage().getScaledInstance(300, 300, 0)));
+                citraLogTransformationLabel.setText("");
             }
         };
         t.start();
@@ -580,19 +982,489 @@ public class View extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         citraPiecewearLabel.setText("Processing");
-        if(testingImage.getGrayImage() == null){
+        if (imageFormSiji.getGrayImage() == null) {
             JOptionPane.showMessageDialog(rootPane, "Set Gray Level Terlebih Dahulu !!!");
             return;
         }
         Thread t = new Thread() {
+            @Override
             public void run() {
-                testingImage.imageToBinary();
-                citraPiecewearLabel.setIcon(new ImageIcon(testingImage.getBinaryImage().getScaledInstance(300, 300, 0)));
+                imageFormSiji.imageToBinary();
+                citraPiecewearLabel.setIcon(new ImageIcon(imageFormSiji.getBinaryImage().getScaledInstance(300, 300, 0)));
             }
         };
         t.start();
         citraPiecewearLabel.setText("");
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        citraPowerLawLabel.setText("Processing");
+        if (imageFormSiji.getGrayImage() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Set Gray Level Terlebih Dahulu !!!");
+            return;
+        }
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                imageFormSiji.imageToPowerLaw(Double.parseDouble(cPowerInput.getText()), Double.parseDouble(gammaPowerInput.getText()));
+                citraPowerLawLabel.setIcon(new ImageIcon(imageFormSiji.getPowerLawImage().getScaledInstance(300, 300, 0)));
+            }
+        };
+        t.start();
+        citraPowerLawLabel.setText("");
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void prosesSubstractionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prosesSubstractionButtonMouseClicked
+        System.out.println("" + imageFormTelu1.getLebar() + "\n" + imageFormTelu2.getLebar() + "\n" + imageFormTelu1.getTinggi() + "\n" + imageFormTelu2.getTinggi());
+        if (imageFormTelu1.getLebar() <= imageFormTelu2.getLebar() && imageFormTelu1.getTinggi() <= imageFormTelu2.getTinggi()) {
+            Thread t = new Thread() {
+                @Override
+                public void run() {
+                    citraSubstractionLabelHasil.setText("Processing...");
+                    citraSubstractionLabelHasil.setIcon(new ImageIcon(imageFormTelu1.imageSubstraction(imageFormTelu2.getGrayImage()).getScaledInstance(300, 300, 0)));
+                    citraSubstractionLabelHasil.setText("");
+                }
+            };
+            t.start();
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Ukuran citra tidak sama, samakan dulu yach");
+        }
+
+    }//GEN-LAST:event_prosesSubstractionButtonMouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        final String path = "./Citra Images/form.3";
+        javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+        chooser.setCurrentDirectory(new File(path));
+
+        chooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public final static String jpeg = "jpeg";
+            public final String jpg = "jpg";
+            public final String gif = "gif";
+            public final String tiff = "tiff";
+            public final String tif = "tif";
+            public final String png = "png";
+
+            /*Get the extension of a file.*/
+            public String getExtension(java.io.File f) {
+                String ext = null;
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+                    ext = s.substring(i + 1).toLowerCase();
+                }
+                return ext;
+            }
+
+            @Override
+            public String getDescription() {
+                return "All Images extensions (jpg, gif, tiff, tif, png)";
+            }
+
+            @Override
+            public boolean accept(java.io.File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+
+                String extension = getExtension(f);
+                if (extension != null) {
+                    return extension.equals(tiff)
+                            || extension.equals(tif)
+                            || extension.equals(gif)
+                            || extension.equals(jpeg)
+                            || extension.equals(jpg)
+                            || extension.equals(png);
+                }
+
+                return false;
+            }
+        });
+
+        if (chooser.showDialog(this, "  Open  ")
+                == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File file = chooser.getSelectedFile();
+            String filePath = file.toString();
+            try {
+                final BufferedImage bimg = ImageIO.read(new File(filePath));
+                pathLabelSubs1.setText("Nama Citra : " + file.getName());
+
+                //Buat thread baru 
+                Thread t = new Thread() {
+                    @Override
+                    public void run() {
+                        imageFormTelu1.setImage(bimg);
+                        imageFormTelu1.imageToGray(1);
+                        citraSubstractionLabel1.setText("");
+                        citraSubstractionLabel1.setIcon(new ImageIcon(bimg.getScaledInstance(230, 230, 0)));
+                        citraSubstractionLabel1Gray.setIcon(new ImageIcon(imageFormTelu1.getGrayImage().getScaledInstance(230, 230, 0)));
+                        citraSubstractionLabel1Gray.setText("");
+                    }
+                };
+                t.start();
+
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "File Tidak Ditemukan " + e);
+            }
+        }
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        final String path = "./Citra Images/form.3";
+        javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+        chooser.setCurrentDirectory(new File(path));
+
+        chooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public final static String jpeg = "jpeg";
+            public final String jpg = "jpg";
+            public final String gif = "gif";
+            public final String tiff = "tiff";
+            public final String tif = "tif";
+            public final String png = "png";
+
+            /*Get the extension of a file.*/
+            public String getExtension(java.io.File f) {
+                String ext = null;
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+                    ext = s.substring(i + 1).toLowerCase();
+                }
+                return ext;
+            }
+
+            @Override
+            public String getDescription() {
+                return "All Images extensions (jpg, gif, tiff, tif, png)";
+            }
+
+            @Override
+            public boolean accept(java.io.File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+
+                String extension = getExtension(f);
+                if (extension != null) {
+                    return extension.equals(tiff)
+                            || extension.equals(tif)
+                            || extension.equals(gif)
+                            || extension.equals(jpeg)
+                            || extension.equals(jpg)
+                            || extension.equals(png);
+                }
+
+                return false;
+            }
+        });
+
+        if (chooser.showDialog(this, "  Open  ")
+                == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File file = chooser.getSelectedFile();
+            String filePath = file.toString();
+            try {
+                final BufferedImage bimg = ImageIO.read(new File(filePath));
+                pathLabelSubs2.setText("Nama Citra : " + file.getName());
+
+                //Buat thread baru 
+                Thread t = new Thread() {
+                    @Override
+                    public void run() {
+                        imageFormTelu2.setImage(bimg);
+                        imageFormTelu2.imageToGray(1);
+                        citraSubstractionLabel2.setText("");
+                        citraSubstractionLabel2.setIcon(new ImageIcon(bimg.getScaledInstance(230, 230, 0)));
+                        citraSubstractionLabel2Gray.setIcon(new ImageIcon(imageFormTelu2.getGrayImage().getScaledInstance(230, 230, 0)));
+                        citraSubstractionLabel2Gray.setText("");
+                    }
+                };
+                t.start();
+
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "File Tidak Ditemukan " + e);
+            }
+        }
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void prosesBitPlaneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prosesBitPlaneButtonMouseClicked
+
+        citraBitPlaneLabel.setIcon(null);
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                citraBitPlaneLabel.setText("Processing...");
+                citraBitPlaneLabel.setIcon(new ImageIcon(imageFormLoro.imageToBitPlane(levelBitCombo.getSelectedIndex()).getScaledInstance(300, 300, 0)));
+                citraBitPlaneLabel.setText("");
+            }
+        };
+        t.start();
+
+
+    }//GEN-LAST:event_prosesBitPlaneButtonMouseClicked
+
+    private void prosesBitPlaneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prosesBitPlaneButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_prosesBitPlaneButtonActionPerformed
+
+    private void pilihGambarBitPlaneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pilihGambarBitPlaneButtonMouseClicked
+        final String path = "./Citra Images/form.2";
+        javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+        chooser.setCurrentDirectory(new File(path));
+
+        chooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public final static String jpeg = "jpeg";
+            public final String jpg = "jpg";
+            public final String gif = "gif";
+            public final String tiff = "tiff";
+            public final String tif = "tif";
+            public final String png = "png";
+
+            /*Get the extension of a file.*/
+            public String getExtension(java.io.File f) {
+                String ext = null;
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+                    ext = s.substring(i + 1).toLowerCase();
+                }
+                return ext;
+            }
+
+            @Override
+            public String getDescription() {
+                return "All Images extensions (jpg, gif, tiff, tif, png)";
+            }
+
+            @Override
+            public boolean accept(java.io.File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+
+                String extension = getExtension(f);
+                if (extension != null) {
+                    return extension.equals(tiff)
+                            || extension.equals(tif)
+                            || extension.equals(gif)
+                            || extension.equals(jpeg)
+                            || extension.equals(jpg)
+                            || extension.equals(png);
+                }
+
+                return false;
+            }
+        });
+
+        if (chooser.showDialog(this, "  Open  ")
+                == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File file = chooser.getSelectedFile();
+            String filePath = file.toString();
+            try {
+                final BufferedImage bimg = ImageIO.read(new File(filePath));
+                namaCitraBitPlane.setText("Nama Citra : " + file.getName());
+
+                //Buat thread baru 
+                Thread t = new Thread() {
+                    @Override
+                    public void run() {
+                        imageFormLoro.setImage(bimg);
+                        imageFormLoro.imageToGray(1);
+                        citraBitPlane1Label.setText("");
+                        citraBitPlane1Label.setIcon(new ImageIcon(bimg.getScaledInstance(250, 250, 0)));
+                        citraBitPlane1GrayLabel.setIcon(new ImageIcon(imageFormLoro.getGrayImage().getScaledInstance(250, 250, 0)));
+                        citraBitPlane1GrayLabel.setText("");
+                    }
+                };
+                t.start();
+
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "File Tidak Ditemukan " + e);
+            }
+        }
+    }//GEN-LAST:event_pilihGambarBitPlaneButtonMouseClicked
+
+    private void prosesSubstractionButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prosesSubstractionButton1MouseClicked
+        citraHasilLogika.setIcon (null);
+        Thread t = new Thread() {
+            
+            @Override
+            public void run() {
+                citraHasilLogika.setText("Processing....");
+                citraHasilLogika.setIcon(new ImageIcon(imageFormPapat1.operasiLogika(imageFormPapat2.getGrayImage(), jenisLogikaCombo.getSelectedIndex()).getScaledInstance(300, 300, 0)));
+                citraHasilLogika.setText("");
+            }
+        };
+        t.start();
+    }//GEN-LAST:event_prosesSubstractionButton1MouseClicked
+
+    private void pilihGambarForm4aMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pilihGambarForm4aMouseClicked
+        final String path = "./Citra Images/form.4";
+        javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+        chooser.setCurrentDirectory(new File(path));
+
+        chooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public final static String jpeg = "jpeg";
+            public final String jpg = "jpg";
+            public final String gif = "gif";
+            public final String tiff = "tiff";
+            public final String tif = "tif";
+            public final String png = "png";
+
+            /*Get the extension of a file.*/
+            public String getExtension(java.io.File f) {
+                String ext = null;
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+                    ext = s.substring(i + 1).toLowerCase();
+                }
+                return ext;
+            }
+
+            @Override
+            public String getDescription() {
+                return "All Images extensions (jpg, gif, tiff, tif, png)";
+            }
+
+            @Override
+            public boolean accept(java.io.File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+
+                String extension = getExtension(f);
+                if (extension != null) {
+                    return extension.equals(tiff)
+                            || extension.equals(tif)
+                            || extension.equals(gif)
+                            || extension.equals(jpeg)
+                            || extension.equals(jpg)
+                            || extension.equals(png);
+                }
+
+                return false;
+            }
+        });
+
+        if (chooser.showDialog(this, "  Open  ")
+                == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File file = chooser.getSelectedFile();
+            String filePath = file.toString();
+            try {
+                final BufferedImage bimg = ImageIO.read(new File(filePath));
+                namaCitraForm4a.setText("Nama Citra : " + file.getName());
+
+                //Buat thread baru 
+                Thread t = new Thread() {
+                    @Override
+                    public void run() {
+                        imageFormPapat1.setImage(bimg);
+                        imageFormPapat1.imageToGray(1);
+                        citraFormPapat1.setText("");
+                        citraFormPapat1.setIcon(new ImageIcon(bimg.getScaledInstance(230, 230, 0)));
+                        citraFormPapat1Gray.setIcon(new ImageIcon(imageFormPapat1.getGrayImage().getScaledInstance(230, 230, 0)));
+                        citraFormPapat1Gray.setText("");
+                        citraHasilLogika.setIcon(null);
+                        citraHasilLogika.setText("Citra Hasil");
+                    }
+                };
+                t.start();
+
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "File Tidak Ditemukan " + e);
+            }
+        }
+    }//GEN-LAST:event_pilihGambarForm4aMouseClicked
+
+    private void pilihGambarForm4bMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pilihGambarForm4bMouseClicked
+        final String path = "./Citra Images/form.4";
+        javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+        chooser.setCurrentDirectory(new File(path));
+
+        chooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public final static String jpeg = "jpeg";
+            public final String jpg = "jpg";
+            public final String gif = "gif";
+            public final String tiff = "tiff";
+            public final String tif = "tif";
+            public final String png = "png";
+
+            /*Get the extension of a file.*/
+            public String getExtension(java.io.File f) {
+                String ext = null;
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+                    ext = s.substring(i + 1).toLowerCase();
+                }
+                return ext;
+            }
+
+            @Override
+            public String getDescription() {
+                return "All Images extensions (jpg, gif, tiff, tif, png)";
+            }
+
+            @Override
+            public boolean accept(java.io.File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+
+                String extension = getExtension(f);
+                if (extension != null) {
+                    return extension.equals(tiff)
+                            || extension.equals(tif)
+                            || extension.equals(gif)
+                            || extension.equals(jpeg)
+                            || extension.equals(jpg)
+                            || extension.equals(png);
+                }
+
+                return false;
+            }
+        });
+
+        if (chooser.showDialog(this, "  Open  ")
+                == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File file = chooser.getSelectedFile();
+            String filePath = file.toString();
+            try {
+                final BufferedImage bimg = ImageIO.read(new File(filePath));
+                namaCitraForm4b.setText("Nama Citra : " + file.getName());
+
+                //Buat thread baru 
+                Thread t = new Thread() {
+                    @Override
+                    public void run() {
+                        imageFormPapat2.setImage(bimg);
+                        imageFormPapat2.imageToGray(1);
+                        citraFormPapat2.setText("");
+                        citraFormPapat2.setIcon(new ImageIcon(bimg.getScaledInstance(230, 230, 0)));
+                        citraFormPapat2Gray.setIcon(new ImageIcon(imageFormPapat2.getGrayImage().getScaledInstance(230, 230, 0)));
+                        citraFormPapat2Gray.setText("");
+                        citraHasilLogika.setIcon(null);
+                        citraHasilLogika.setText("Citra Hasil");
+                    }
+                };
+                t.start();
+
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "File Tidak Ditemukan " + e);
+            }
+        }
+    }//GEN-LAST:event_pilihGambarForm4bMouseClicked
 
     /**
      * @param args the command line arguments
@@ -604,25 +1476,19 @@ public class View extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            try {
+                javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex1) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new View().setVisible(true);
             }
@@ -630,23 +1496,42 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cPowerInput;
+    private javax.swing.JLabel citraBitPlane1GrayLabel;
+    private javax.swing.JLabel citraBitPlane1Label;
+    private javax.swing.JLabel citraBitPlaneLabel;
+    private javax.swing.JLabel citraFormPapat1;
+    private javax.swing.JLabel citraFormPapat1Gray;
+    private javax.swing.JLabel citraFormPapat2;
+    private javax.swing.JLabel citraFormPapat2Gray;
     private javax.swing.JLabel citraGrayLabel;
+    private javax.swing.JLabel citraHasilLogika;
     private javax.swing.JLabel citraLabel;
     private javax.swing.JLabel citraLogTransformationLabel;
     private javax.swing.JLabel citraNegatifLabel;
     private javax.swing.JLabel citraPiecewearLabel;
     private javax.swing.JLabel citraPowerLawLabel;
+    private javax.swing.JLabel citraSubstractionLabel1;
+    private javax.swing.JLabel citraSubstractionLabel1Gray;
+    private javax.swing.JLabel citraSubstractionLabel2;
+    private javax.swing.JLabel citraSubstractionLabel2Gray;
+    private javax.swing.JLabel citraSubstractionLabelHasil;
     private javax.swing.JTextField constantaLogTransInput;
     private javax.swing.JLabel detailCitraLabel;
+    private javax.swing.JTextField gammaPowerInput;
     private javax.swing.JComboBox grayMetodeCombo;
     private javax.swing.JButton grayProsesButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -657,11 +1542,29 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JComboBox jenisLogikaCombo;
+    private javax.swing.JComboBox levelBitCombo;
     private javax.swing.JButton logTransformationProsesButton;
+    private javax.swing.JLabel namaCitraBitPlane;
+    private javax.swing.JLabel namaCitraForm4a;
+    private javax.swing.JLabel namaCitraForm4b;
     private javax.swing.JButton negatifProsesButton;
     private javax.swing.JLabel pathCitraLabel;
+    private javax.swing.JLabel pathLabelSubs1;
+    private javax.swing.JLabel pathLabelSubs2;
+    private javax.swing.JLabel pathLabelSubs3;
+    private javax.swing.JLabel pathLabelSubs4;
+    private javax.swing.JButton pilihGambarBitPlaneButton;
+    private javax.swing.JButton pilihGambarForm4a;
+    private javax.swing.JButton pilihGambarForm4b;
+    private javax.swing.JButton prosesBitPlaneButton;
+    private javax.swing.JButton prosesSubstractionButton;
+    private javax.swing.JButton prosesSubstractionButton1;
     // End of variables declaration//GEN-END:variables
 }

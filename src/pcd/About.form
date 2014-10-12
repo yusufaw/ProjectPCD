@@ -75,7 +75,7 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="Program Pengolahan Citra Digital&#xa;&#xa;Anggota Kelompok&#xa;ZELLA AGUSTINA R.H &#x9;115060800111122&#xa;AKHMAD SYURURI &#x9;115060807111092&#xa;ADZHANA HASFI &#x9;115090607111026&#xa;YUSUF AJI WIBOWO&#x9;115090613111004"/>
+                <Property name="text" type="java.lang.String" value="Program Pengolahan Citra Digital&#xa;&#xa;Anggota Kelompok&#xa;ZELLA AGUSTINA R.H &#x9;115060800111122&#xa;AKHMAD SYURURI &#x9;&#x9;115060807111092&#xa;ADZHANA HASFI &#x9;&#x9;115090607111026&#xa;YUSUF AJI WIBOWO&#x9;115090613111004&#xa;RIZKY AMALIA PRAMESTI&#x9;125150200111084"/>
               </Properties>
             </Component>
           </SubComponents>
