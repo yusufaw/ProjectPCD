@@ -22,6 +22,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import pcd.About;
 
 
 /**
@@ -80,7 +81,9 @@ public class View extends javax.swing.JFrame {
         ukuranCitraTelu = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Program Pengolahan Citra Digital");
@@ -298,9 +301,27 @@ public class View extends javax.swing.JFrame {
         jTabbedPane1.addTab("Sharpening", jPanel1);
 
         jMenu1.setText("File");
+
+        jMenuItem2.setText("Exit");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("About");
+
+        jMenuItem1.setText("About");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -415,7 +436,7 @@ public class View extends javax.swing.JFrame {
                         citraLabel.setText("");
                         citraGrayLabel.setText("");
                         citraEkualisasi.setText("");
-                        citraLabel.setIcon(new ImageIcon(bimg.getScaledInstance(250, 250, 0)));
+                        citraLabel.setIcon(new ImageIcon(bimg.getScaledInstance(230, 230, 0)));
                         //resetCitra();
                         ukuranCitra.setText("Ukuran Citra : " + imageFormSiji.getTinggi() + " x " + imageFormSiji.getLebar() + "");
                         imageFormSiji.setSmoothingImage();
@@ -599,6 +620,15 @@ public class View extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pilihGambarLoroMouseClicked
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        About about = new About(null, rootPaneCheckingEnabled);
+        about.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -644,6 +674,8 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
