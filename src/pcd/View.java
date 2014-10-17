@@ -842,21 +842,9 @@ public class View extends javax.swing.JFrame {
                 == javax.swing.JFileChooser.APPROVE_OPTION) {
             java.io.File file = chooser.getSelectedFile();
             String filePath = file.toString();
-            //String nama_file = file.getName().substring(5, 10);
-            //jTextFieldactual_class_Testing.setText(nama_file);
-
-            final ImageProcessing imageProTest;
-            //ArrayDataTiapFitur nilaiFitur;
-
             try {
-                //jLabelCitraTesting.setText("");                        
                 final BufferedImage bimg = ImageIO.read(new File(filePath));
-
-                //imageProTest = dataPro.dataTraining(bimg, filePath);  // akan mereset data training awal
-                //nilaiFitur = dataPro.getDataFitur();
                 pathCitraLabel.setText("Nama Citra : " + file.getName());
-
-                //Buat thread baru 
                 Thread t = new Thread() {
                     @Override
                     public void run() {
@@ -864,41 +852,7 @@ public class View extends javax.swing.JFrame {
                         citraLabel.setText("");
                         citraLabel.setIcon(new ImageIcon(bimg.getScaledInstance(300, 300, 0)));
                         resetCitra();
-                        //citraLabel.setIcon(new ImageIcon(imageProTest.getDiameterLine().getScaledInstance(220, 210, 0)));
-
-//                        jLabelCitraGrayTesting.setIcon(new ImageIcon(testingImage.getGrayImage().getScaledInstance(70, 60, 0)));
-//                        jLabelCitraBinerTesting.setIcon(new ImageIcon(testingImage.getBinaryImage().getScaledInstance(70, 60, 0)));
-//                        jLabelCitraMaxFilterTesting.setIcon(new ImageIcon(testingImage.getMaxImage().getScaledInstance(70, 60, 0)));
-//                
                         detailCitraLabel.setText("Ukuran Citra : " + imageFormSiji.getTinggi() + " x " + imageFormSiji.getLebar() + "");
-//                        
-//
-//                        jLabelCitraGrayTesting.setText("");
-
-//
-//                        jLabelCitraBinerTesting.setText("");
-//                        //jLabelCitraBinerTesting.setIcon(new ImageIcon(testingImage.getBinaryImage().getScaledInstance(70, 60, 0)));
-//
-//                        jLabelCitraMaxFilterTesting.setText("");
-//                        //jLabelCitraMaxFilterTesting.setIcon(new ImageIcon(testingImage.getMaxImage().getScaledInstance(70, 60, 0)));
-//
-//                        // format desimal
-//                        DecimalFormat df = new DecimalFormat("#.###");
-//
-//
-//                        jTextFieldvar_mean_Red_Testing.setText(df.format(testingImage.getR()));
-//                        jTextFieldvar_mean_Green_Testing.setText(df.format(testingImage.getG()));
-//                        jTextFieldvar_mean_Blue_Testing.setText(df.format(testingImage.getB()));
-//                        jTextFielddiameter_Testing.setText(df.format(testingImage.getDiameter()));
-//                        
-//                        //String hasil="";
-//                        String hasil = dataPro.dataTesting(testingImage.getImage());
-//                        ArrayList<ArrayDataPosterior> allPosterior = dataPro.getSemuaPosterior(); 
-//                        System.out.println("nilai post nipis" + allPosterior.get(0).getProbabilitas());
-//                        jTextFieldposterior_kelas_jn.setText(""+allPosterior.get(0).getProbabilitas());
-//                        jTextFieldposterior_kelas_jl.setText(allPosterior.get(1).getProbabilitas()+"");
-//                        jTextFieldposterior_kelas_jm.setText(allPosterior.get(2).getProbabilitas()+"");
-//                        jTextFieldpredicted_class_Testing.setText(hasil);   
                     }
                 };
                 t.start();
@@ -955,7 +909,7 @@ public class View extends javax.swing.JFrame {
         Thread t = new Thread() {
             @Override
             public void run() {
-                imageFormSiji.imagetoNegative();
+                imageFormSiji.imageToNegative();
                 citraNegatifLabel.setIcon(new ImageIcon(imageFormSiji.getNegativeImage().getScaledInstance(300, 300, 0)));
                 citraNegatifLabel.setText("");
             }
@@ -1291,9 +1245,9 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_pilihGambarBitPlaneButtonMouseClicked
 
     private void prosesSubstractionButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prosesSubstractionButton1MouseClicked
-        citraHasilLogika.setIcon (null);
+        citraHasilLogika.setIcon(null);
         Thread t = new Thread() {
-            
+
             @Override
             public void run() {
                 citraHasilLogika.setText("Processing....");

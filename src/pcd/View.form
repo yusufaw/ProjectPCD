@@ -997,7 +997,6 @@
                                       <Component id="pilihGambarForm4b" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                       <Component id="namaCitraForm4b" min="-2" pref="228" max="-2" attributes="0"/>
-                                      <EmptySpace min="167" pref="167" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>

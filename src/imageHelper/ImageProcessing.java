@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ImageProcessing {
+
     private ArrayList koordObjek;
     private BufferedImage realImage;
     private BufferedImage grayImage;
@@ -13,6 +16,9 @@ public class ImageProcessing {
     private BufferedImage negativeImage;
     private BufferedImage logTransformationImage;
     private BufferedImage powerLawImage;
+    private BufferedImage equalImage;
+    private BufferedImage smoothingImage;
+    private BufferedImage sharpeningImage;
     private int tinggiCitra;
     private int lebarCitra;
     private int maxGray;
@@ -33,6 +39,9 @@ public class ImageProcessing {
         this.tinggiCitra = 0;
         this.maxGray = 0;
         histogram = new ArrayList();
+        this.equalImage = null;
+        this.smoothingImage = null;
+        this.sharpeningImage = null;
     }
 
     /**
@@ -45,6 +54,9 @@ public class ImageProcessing {
         this.grayImage = null;
         this.negativeImage = null;
         this.logTransformationImage = null;
+        this.equalImage = null;
+        this.smoothingImage = null;
+        this.sharpeningImage = null;
         this.setSize();
     }
 
@@ -103,6 +115,33 @@ public class ImageProcessing {
     }
 
     /**
+     * Dapatkan image yg sudah di proses menjadi equalisasi.
+     *
+     * @return
+     */
+    public BufferedImage getEqualImage() {
+        return this.equalImage;
+    }
+
+    /**
+     * Mendapatkan image yang sudah diproses smoothing
+     *
+     * @return
+     */
+    public BufferedImage getSmoothingImage() {
+        return this.smoothingImage;
+    }
+
+    /**
+     * Mendapatkan image yang sudah diproses sharpening
+     *
+     * @return
+     */
+    public BufferedImage getSharpeningImage() {
+        return this.sharpeningImage;
+    }
+
+    /**
      * Dapatkan nilai max gray
      *
      * @return
@@ -127,6 +166,15 @@ public class ImageProcessing {
      */
     public int getTinggi() {
         return this.tinggiCitra;
+    }
+
+    /**
+     * Mendapatkan data histogram
+     *
+     * @return
+     */
+    public ArrayList<ItemHistogram> getHistogram() {
+        return this.histogram;
     }
 
     /**
@@ -398,7 +446,162 @@ public class ImageProcessing {
         }
         return output;
     }
-    
-    public void setHistogram(){
+
+    /**
+     * Fungsi untuk menghitung hitogram image dan ekualisasi
+     */
+    public void setHistogram() {
+        ArrayList<ItemHistogram> ad = new ArrayList<>();
+        ArrayList<ItemHistogram> sort = new ArrayList<>();
+        Color before, after;
+        BufferedImage output = new BufferedImage(lebarCitra, tinggiCitra,
+                BufferedImage.TYPE_BYTE_GRAY);
+        for (int y = 1; y < tinggiCitra; y++) {
+            for (int x = 1; x < lebarCitra; x++) {
+                before = new Color(grayImage.getRGB(x, y) & 0x00ffffff);
+                int nilaiRGB = before.getRed();
+                boolean ketemu = false;
+                for (ItemHistogram ad1 : ad) {
+                    if (nilaiRGB == ad1.getRgb()) {
+                        ad1.setJumlah(ad1.getJumlah() + 1);
+                        ketemu = true;
+                    }
+                }
+                if (!ketemu) {
+                    ItemHistogram itemBaru = new ItemHistogram(nilaiRGB, 1);
+                    ad.add(itemBaru);
+                }
+            }
+        }
+
+        ad.get(0).setJumlahKumulatif(ad.get(0).getJumlah());
+        sort = ad;
+        Collections.sort(ad, new Comparator<ItemHistogram>() {
+            @Override
+            public int compare(ItemHistogram ih1, ItemHistogram ih2) {
+                if (ih1.getRgb() > ih2.getRgb()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });
+
+        sort.get(0).setJumlahKumulatif(sort.get(0).getJumlah());
+        for (int i = 1; i < sort.size(); i++) {
+            sort.get(i).setJumlahKumulatif(sort.get(i - 1).getJumlahKumulatif() + sort.get(i).getJumlah());
+            double hasilBagi = (double) sort.get(i).getJumlahKumulatif() / (this.lebarCitra * this.tinggiCitra);
+            sort.get(i).setHasilEkualisasi((int) (hasilBagi * 255));
+        }
+        histogram = sort;
+
+        for (int i = 0; i < this.lebarCitra; i++) {
+            for (int j = 0; j < this.tinggiCitra; j++) {
+                for (ItemHistogram sort1 : sort) {
+                    before = new Color(grayImage.getRGB(i, j) & 0x00ffffff);
+                    int nilaiRGB = before.getRed();
+                    if (nilaiRGB == sort1.getRgb()) {
+                        int hasil = sort1.getHasilEkualisasi();
+                        after = new Color(hasil, hasil, hasil);
+                        output.setRGB(i, j, after.getRGB());
+                    }
+                }
+            }
+        }
+        this.equalImage = output;
+    }
+
+    /**
+     * Fungsi untuk mengubah image dengan teknik smoothing
+     */
+    public void setSmoothingImage() {
+        Color before, after;
+        BufferedImage output = new BufferedImage(lebarCitra, tinggiCitra,
+                BufferedImage.TYPE_BYTE_GRAY);
+        int boxFilter[][] = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
+        int weightedAverage[][] = {{1, 2, 1}, {2, 4, 2}, {1, 2, 1}};
+        int rgbPlus[][] = new int[(lebarCitra + 2)][(tinggiCitra + 2)];
+        for (int i = 0; i < this.lebarCitra; i++) {
+            for (int j = 0; j < this.tinggiCitra; j++) {
+                before = new Color(grayImage.getRGB(i, j) & 0x00ffffff);
+                rgbPlus[i + 1][j + 1] = before.getRed();
+            }
+        }
+        for (int i = 1; i < rgbPlus.length-1; i++) {
+            for (int j = 1; j < rgbPlus[0].length-1; j++) {
+                
+                int tempI = i - 1;
+                int tempJ = j - 1;
+                 int jumlah = 0;
+                jumlah += rgbPlus[i-1][j-1]*boxFilter[0][0];
+                jumlah += rgbPlus[i-1][j]*boxFilter[0][1];
+                jumlah += rgbPlus[i-1][j+1]*boxFilter[0][2];
+                jumlah += rgbPlus[i][j-1]*boxFilter[1][0];
+                jumlah += rgbPlus[i][j]*boxFilter[1][1];
+                jumlah += rgbPlus[i][j+1]*boxFilter[1][2];
+                jumlah += rgbPlus[i+1][j-1]*boxFilter[2][0];
+                jumlah += rgbPlus[i+1][j]*boxFilter[2][1];
+                jumlah += rgbPlus[i+1][j+1]*boxFilter[2][2];
+                int hasil = jumlah/9;
+                after = new Color(hasil, hasil, hasil);
+                output.setRGB(i-1, j-1, after.getRGB());
+            }
+        }
+        this.smoothingImage = output;
+    }
+
+    /**
+     * Fungsi untuk mengubah image dengan teknik sharpening
+     */
+    public void setSharpeningImage() {
+        Color before, after;
+        BufferedImage output = new BufferedImage(lebarCitra, tinggiCitra,
+                BufferedImage.TYPE_BYTE_GRAY);
+        
+        int sobel[][][] = {{{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}},{{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}}};
+        int weightedAverage[][] = {{1, 2, 1}, {2, 4, 2}, {1, 2, 1}};
+        int rgbPlus[][] = new int[(lebarCitra + 2)][(tinggiCitra + 2)];
+        for (int i = 0; i < this.lebarCitra; i++) {
+            for (int j = 0; j < this.tinggiCitra; j++) {
+                before = new Color(grayImage.getRGB(i, j) & 0x00ffffff);
+                rgbPlus[i + 1][j + 1] = before.getRed();
+            }
+        }
+        for (int i = 1; i < rgbPlus.length-1; i++) {
+            for (int j = 1; j < rgbPlus[0].length-1; j++) {
+               int jumlah[] = new int[2];
+                jumlah[0] = 0;
+                jumlah[1] = 0;
+                
+                jumlah[0] += rgbPlus[i-1][j-1]*sobel[0][0][0];
+                jumlah[0] += rgbPlus[i-1][j]*sobel[0][0][1];
+                jumlah[0] += rgbPlus[i-1][j+1]*sobel[0][0][2];
+                jumlah[0] += rgbPlus[i][j-1]*sobel[0][1][0];
+                jumlah[0] += rgbPlus[i][j]*sobel[0][1][1];
+                jumlah[0] += rgbPlus[i][j+1]*sobel[0][1][2];
+                jumlah[0] += rgbPlus[i+1][j-1]*sobel[0][2][0];
+                jumlah[0] += rgbPlus[i+1][j]*sobel[0][2][1];
+                jumlah[0] += rgbPlus[i+1][j+1]*sobel[0][2][2];
+                
+                jumlah[1] += rgbPlus[i-1][j-1]*sobel[1][0][0];
+                jumlah[1] += rgbPlus[i-1][j]*sobel[1][0][1];
+                jumlah[1] += rgbPlus[i-1][j+1]*sobel[1][0][2];
+                jumlah[1] += rgbPlus[i][j-1]*sobel[1][1][0];
+                jumlah[1] += rgbPlus[i][j]*sobel[1][1][1];
+                jumlah[1] += rgbPlus[i][j+1]*sobel[1][1][2];
+                jumlah[1] += rgbPlus[i+1][j-1]*sobel[1][2][0];
+                jumlah[1] += rgbPlus[i+1][j]*sobel[1][2][1];
+                jumlah[1] += rgbPlus[i+1][j+1]*sobel[1][2][2];
+                
+                jumlah[0] = (int)Math.sqrt(Math.pow(jumlah[0], 2));
+                jumlah[1] = (int)Math.sqrt(Math.pow(jumlah[1], 2));
+                int hasil = jumlah[0] + jumlah[1];
+                hasil = hasil < 0 ? 0 : hasil;
+                hasil = hasil > 255 ? 255 : hasil;
+                after = new Color(hasil, hasil, hasil);
+                output.setRGB(i-1, j-1, after.getRGB());
+            }
+        }
+        this.sharpeningImage = output;
     }
 }
